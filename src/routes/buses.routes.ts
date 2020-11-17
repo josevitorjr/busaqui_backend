@@ -55,7 +55,7 @@ busRouter.delete('/:busPlate', async (request, response) => {
     const busesRepository = getCustomRepository(BusesRepository);
     const { busPlate } = request.params;
 
-    const bus = await busesRepository.delete(busPlate);
+    await busesRepository.delete(busPlate);
 
     return response.json();
   } catch (err) {
