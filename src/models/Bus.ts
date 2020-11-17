@@ -1,18 +1,18 @@
+import { Entity, Column, PrimaryColumn } from 'typeorm';
+
+@Entity('buses')
 class Bus {
+  @PrimaryColumn('varchar')
   busPlate: string;
 
+  @Column('float')
   latitude: number;
 
+  @Column('float')
   longitude: number;
 
+  @Column('timestamp with time zone')
   lastUpdateTime: Date;
-
-  constructor({ busPlate, latitude, longitude, lastUpdateTime }: Bus) {
-    this.busPlate = busPlate;
-    this.latitude = latitude;
-    this.longitude = longitude;
-    this.lastUpdateTime = lastUpdateTime;
-  }
 }
 
 export default Bus;

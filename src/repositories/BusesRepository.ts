@@ -1,28 +1,14 @@
+import { EntityRepository, Repository } from 'typeorm';
 import Bus from '../models/Bus';
 
-interface Balance {
-  income: number;
-  outcome: number;
-  total: number;
-}
+@EntityRepository(Bus)
+class BusesRepository extends Repository<Bus> {
+  public async findByPlate(busPlate: string): Promise<Bus | null> {
+    const findBus = await this.findOne({
+      where: { busPlate },
+    });
 
-class BusesRepository {
-  private buses: Bus[];
-
-  constructor() {
-    this.buses = [];
-  }
-
-  public all(): Bus[] {
-    return this.buses;
-  }
-
-  public create({ busPlate, latitude, longitude, lastUpdateTime }: Bus): Bus {
-    const bus = new Bus({ busPlate, latitude, longitude, lastUpdateTime });
-
-    this.buses.push(bus);
-
-    return bus;
+    return findBus || null;
   }
 }
 

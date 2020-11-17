@@ -1,15 +1,15 @@
 import { Router } from 'express';
+import { getCustomRepository } from 'typeorm';
 
 import BusesRepository from '../repositories/BusesRepository';
 import CreateBusService from '../services/CreateBusService';
 
 const busRouter = Router();
 
-const busesRepository = new BusesRepository();
-
-busRouter.get('/', (request, response) => {
+busRouter.get('/', async (request, response) => {
   try {
-    const buses = busesRepository.all();
+    const busesRepository = getCustomRepository(BusesRepository);
+    const buses = await busesRepository.find();
 
     return response.json(buses);
   } catch (err) {
@@ -17,13 +17,27 @@ busRouter.get('/', (request, response) => {
   }
 });
 
-busRouter.post('/', (request, response) => {
+busRouter.get('/:busPlate', async (request, response) => {
+  try {
+    const busesRepository = getCustomRepository(BusesRepository);
+    const { busPlate } = request.params;
+    const bus = await busesRepository.findOne({
+      where: { busPlate },
+    });
+
+    return response.json(bus);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+busRouter.post('/', async (request, response) => {
   try {
     const { busPlate, latitude, longitude, lastUpdateTime } = request.body;
 
-    const createBus = new CreateBusService(busesRepository);
+    const createBus = new CreateBusService();
 
-    const bus = createBus.execute({
+    const bus = await createBus.execute({
       busPlate,
       latitude,
       longitude,
@@ -31,6 +45,19 @@ busRouter.post('/', (request, response) => {
     });
 
     return response.json(bus);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+busRouter.delete('/:busPlate', async (request, response) => {
+  try {
+    const busesRepository = getCustomRepository(BusesRepository);
+    const { busPlate } = request.params;
+
+    const bus = await busesRepository.delete(busPlate);
+
+    return response.json();
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
