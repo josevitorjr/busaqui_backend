@@ -36,15 +36,14 @@ busRouter.get('/:id', async (request, response) => {
 
 busRouter.post('/', async (request, response) => {
   try {
-    const { busPlate, latitude, longitude, lastUpdateTime } = request.body;
+    const { bus_plate, latitude, longitude } = request.body;
 
     const createBus = new CreateBusService();
 
     const bus = await createBus.execute({
-      busPlate,
+      bus_plate,
       latitude,
       longitude,
-      lastUpdateTime,
     });
 
     return response.json(bus);

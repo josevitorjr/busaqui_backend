@@ -8,13 +8,13 @@ export default class CreateBuses1605648687647 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'varchar',
+            type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'busPlate',
+            name: 'bus_plate',
             type: 'varchar',
             isUnique: true,
           },

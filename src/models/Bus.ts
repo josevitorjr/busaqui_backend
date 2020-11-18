@@ -12,7 +12,7 @@ class Bus {
   id: string;
 
   @Column('varchar')
-  busPlate: string;
+  bus_plate: string;
 
   @Column('float')
   latitude: number;

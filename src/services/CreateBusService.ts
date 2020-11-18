@@ -3,25 +3,27 @@ import BusesRepository from '../repositories/BusesRepository';
 import Bus from '../models/Bus';
 
 interface Request {
-  busPlate: string;
+  bus_plate: string;
   latitude: number;
   longitude: number;
 }
 class CreateBusService {
   public async execute({
-    busPlate,
+    bus_plate,
     latitude,
     longitude,
   }: Request): Promise<Bus> {
     const busesRepository = getCustomRepository(BusesRepository);
 
-    const findBusWithTheSamePlate = await busesRepository.findByPlate(busPlate);
+    const findBusWithTheSamePlate = await busesRepository.findByPlate(
+      bus_plate,
+    );
 
     if (findBusWithTheSamePlate) {
       throw Error('Already exists a bus with this plate');
     }
     const bus = busesRepository.create({
-      busPlate,
+      bus_plate,
       latitude,
       longitude,
     });
