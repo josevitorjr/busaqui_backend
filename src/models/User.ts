@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('users')
 class User {
@@ -11,14 +17,14 @@ class User {
   @Column('varchar')
   email: string;
 
-  @Column('float')
-  latitude: number;
+  @Column('varchar')
+  password: string;
 
-  @Column('float')
-  longitude: number;
+  @CreateDateColumn()
+  created_at: Date;
 
-  @Column('timestamp with time zone')
-  lastUpdateTime: Date;
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default User;
