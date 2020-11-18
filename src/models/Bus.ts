@@ -1,8 +1,11 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('buses')
 class Bus {
-  @PrimaryColumn('varchar')
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column('varchar')
   busPlate: string;
 
   @Column('float')

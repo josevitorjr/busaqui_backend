@@ -9,6 +9,7 @@ const busRouter = Router();
 busRouter.get('/', async (request, response) => {
   try {
     const busesRepository = getCustomRepository(BusesRepository);
+
     const buses = await busesRepository.find();
 
     return response.json(buses);
@@ -17,12 +18,14 @@ busRouter.get('/', async (request, response) => {
   }
 });
 
-busRouter.get('/:busPlate', async (request, response) => {
+busRouter.get('/:id', async (request, response) => {
   try {
     const busesRepository = getCustomRepository(BusesRepository);
-    const { busPlate } = request.params;
+
+    const { id } = request.params;
+
     const bus = await busesRepository.findOne({
-      where: { busPlate },
+      where: { id },
     });
 
     return response.json(bus);
@@ -50,12 +53,13 @@ busRouter.post('/', async (request, response) => {
   }
 });
 
-busRouter.delete('/:busPlate', async (request, response) => {
+busRouter.delete('/:id', async (request, response) => {
   try {
     const busesRepository = getCustomRepository(BusesRepository);
-    const { busPlate } = request.params;
 
-    await busesRepository.delete(busPlate);
+    const { id } = request.params;
+
+    await busesRepository.delete(id);
 
     return response.json();
   } catch (err) {
