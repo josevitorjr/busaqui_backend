@@ -27,8 +27,14 @@ export default class CreateBuses1605648687647 implements MigrationInterface {
             type: 'float',
           },
           {
-            name: 'lastUpdateTime',
-            type: 'timestamp with time zone',
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'now()',
           },
         ],
       }),
