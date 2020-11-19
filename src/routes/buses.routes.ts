@@ -4,9 +4,9 @@ import { getCustomRepository } from 'typeorm';
 import BusesRepository from '../repositories/BusesRepository';
 import CreateBusService from '../services/CreateBusService';
 
-const busRouter = Router();
+const busesRouter = Router();
 
-busRouter.get('/', async (request, response) => {
+busesRouter.get('/', async (request, response) => {
   try {
     const busesRepository = getCustomRepository(BusesRepository);
 
@@ -18,7 +18,7 @@ busRouter.get('/', async (request, response) => {
   }
 });
 
-busRouter.get('/:id', async (request, response) => {
+busesRouter.get('/:id', async (request, response) => {
   try {
     const busesRepository = getCustomRepository(BusesRepository);
 
@@ -34,7 +34,7 @@ busRouter.get('/:id', async (request, response) => {
   }
 });
 
-busRouter.post('/', async (request, response) => {
+busesRouter.post('/', async (request, response) => {
   try {
     const { bus_plate, latitude, longitude } = request.body;
 
@@ -52,7 +52,7 @@ busRouter.post('/', async (request, response) => {
   }
 });
 
-busRouter.delete('/:id', async (request, response) => {
+busesRouter.delete('/:id', async (request, response) => {
   try {
     const busesRepository = getCustomRepository(BusesRepository);
 
@@ -66,4 +66,4 @@ busRouter.delete('/:id', async (request, response) => {
   }
 });
 
-export default busRouter;
+export default busesRouter;
