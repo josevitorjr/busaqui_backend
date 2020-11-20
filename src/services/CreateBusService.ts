@@ -1,6 +1,8 @@
 import { getCustomRepository } from 'typeorm';
+
 import BusesRepository from '../repositories/BusesRepository';
 import Bus from '../models/Bus';
+import AppError from '../errors/appError';
 
 interface Request {
   bus_plate: string;
@@ -20,7 +22,7 @@ class CreateBusService {
     );
 
     if (findBusWithTheSamePlate) {
-      throw Error('Already exists a bus with this plate');
+      throw new AppError('Already exists a bus with this plate');
     }
     const bus = busesRepository.create({
       bus_plate,

@@ -18,7 +18,7 @@ busesRouter.get('/', async (request, response) => {
 
     return response.json(buses);
   } catch (err) {
-    return response.status(400).json({ error: err.message });
+    return response.status(err.statusCode).json({ error: err.message });
   }
 });
 
@@ -34,7 +34,7 @@ busesRouter.get('/:id', async (request, response) => {
 
     return response.json(bus);
   } catch (err) {
-    return response.status(400).json({ error: err.message });
+    return response.status(err.statusCode).json({ error: err.message });
   }
 });
 
@@ -52,7 +52,7 @@ busesRouter.post('/', async (request, response) => {
 
     return response.json(bus);
   } catch (err) {
-    return response.status(400).json({ error: err.message });
+    return response.status(err.statusCode).json({ error: err.message });
   }
 });
 
@@ -66,7 +66,7 @@ busesRouter.delete('/:id', async (request, response) => {
 
     return response.json();
   } catch (err) {
-    return response.status(400).json({ error: err.message });
+    return response.status(err.statusCode).json({ error: err.message });
   }
 });
 
