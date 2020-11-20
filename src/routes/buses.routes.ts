@@ -11,63 +11,47 @@ const busesRouter = Router();
 busesRouter.use(ensureAuthenticated);
 
 busesRouter.get('/', async (request, response) => {
-  try {
-    const busesRepository = getCustomRepository(BusesRepository);
+  const busesRepository = getCustomRepository(BusesRepository);
 
-    const buses = await busesRepository.find();
+  const buses = await busesRepository.find();
 
-    return response.json(buses);
-  } catch (err) {
-    return response.status(err.statusCode).json({ error: err.message });
-  }
+  return response.json(buses);
 });
 
 busesRouter.get('/:id', async (request, response) => {
-  try {
-    const busesRepository = getCustomRepository(BusesRepository);
+  const busesRepository = getCustomRepository(BusesRepository);
 
-    const { id } = request.params;
+  const { id } = request.params;
 
-    const bus = await busesRepository.findOne({
-      where: { id },
-    });
+  const bus = await busesRepository.findOne({
+    where: { id },
+  });
 
-    return response.json(bus);
-  } catch (err) {
-    return response.status(err.statusCode).json({ error: err.message });
-  }
+  return response.json(bus);
 });
 
 busesRouter.post('/', async (request, response) => {
-  try {
-    const { bus_plate, latitude, longitude } = request.body;
+  const { bus_plate, latitude, longitude } = request.body;
 
-    const createBus = new CreateBusService();
+  const createBus = new CreateBusService();
 
-    const bus = await createBus.execute({
-      bus_plate,
-      latitude,
-      longitude,
-    });
+  const bus = await createBus.execute({
+    bus_plate,
+    latitude,
+    longitude,
+  });
 
-    return response.json(bus);
-  } catch (err) {
-    return response.status(err.statusCode).json({ error: err.message });
-  }
+  return response.json(bus);
 });
 
 busesRouter.delete('/:id', async (request, response) => {
-  try {
-    const busesRepository = getCustomRepository(BusesRepository);
+  const busesRepository = getCustomRepository(BusesRepository);
 
-    const { id } = request.params;
+  const { id } = request.params;
 
-    await busesRepository.delete(id);
+  await busesRepository.delete(id);
 
-    return response.json();
-  } catch (err) {
-    return response.status(err.statusCode).json({ error: err.message });
-  }
+  return response.json();
 });
 
 export default busesRouter;
