@@ -4,7 +4,11 @@ import { getCustomRepository } from 'typeorm';
 import BusesRepository from '../repositories/BusesRepository';
 import CreateBusService from '../services/CreateBusService';
 
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
+
 const busesRouter = Router();
+
+busesRouter.use(ensureAuthenticated);
 
 busesRouter.get('/', async (request, response) => {
   try {
